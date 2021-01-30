@@ -1,0 +1,19 @@
+type Store @model {
+  id: ID!
+  name: String!
+  capacity: Int
+  occupants: Int!
+}
+
+input CheckInInput {
+  id: ID!
+}
+
+type Mutation {
+  checkIn(input: CheckInInput!): Store
+}
+
+type Subscription {
+  onCheckIn: Store
+    @aws_subscribe(mutations: ["checkIn"])
+}
