@@ -16,5 +16,13 @@
         }
       }
     }
+  },
+  "auth": {
+    "covidtracer5d031d9c": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
   }
 }

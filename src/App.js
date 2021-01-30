@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
-import { AmplifyButton } from '@aws-amplify/ui-react';
+import { AmplifyButton, withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
 import * as subscriptions from './graphql/subscriptions';
@@ -53,29 +53,31 @@ class App extends Component {
   render() {
     return (
       <div style={styles.container} >
-        <div> Occupants: {this.state.stores[0].occupants}</div>
         <div>
-          {this.state.stores.map((store) =>
-            <Checkin
-              key={store.id}
-              id={store.id}
-              name={store.name}
-              occupants={store.occupants}
-            />
-          )}
-        </div>
-        <div>
+          <div> Occupants: {this.state.stores[0].occupants}</div>
+          <div>
+            {this.state.stores.map((store) =>
+              <Checkin
+                key={store.id}
+                id={store.id}
+                name={store.name}
+                occupants={store.occupants}
+              />
+            )}
+          </div>
           <br></br>
-        </div>
-        <div>
-          {this.state.stores.map((store) =>
-            <Checkout
-              key={store.id}
-              id={store.id}
-              name={store.name}
-              occupants={store.occupants}
-            />
-          )}
+          <div>
+            {this.state.stores.map((store) =>
+              <Checkout
+                key={store.id}
+                id={store.id}
+                name={store.name}
+                occupants={store.occupants}
+              />
+            )}
+          </div>
+          <br></br>
+          <AmplifySignOut />
         </div>
       </div >
     )
@@ -116,4 +118,4 @@ const styles = {
   container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
 }
 
-export default App;
+export default withAuthenticator(App)
