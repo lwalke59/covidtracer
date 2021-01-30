@@ -1,6 +1,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const checkIn = /* GraphQL */ `
+  mutation CheckIn($input: CheckInInput!) {
+    checkIn(input: $input) {
+      id
+      name
+      capacity
+      occupants
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createStore = /* GraphQL */ `
   mutation CreateStore(
     $input: CreateStoreInput!

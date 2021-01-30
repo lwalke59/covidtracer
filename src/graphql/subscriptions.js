@@ -1,6 +1,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCheckIn = /* GraphQL */ `
+  subscription OnCheckIn {
+    onCheckIn {
+      id
+      name
+      capacity
+      occupants
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateStore = /* GraphQL */ `
   subscription OnCreateStore {
     onCreateStore {

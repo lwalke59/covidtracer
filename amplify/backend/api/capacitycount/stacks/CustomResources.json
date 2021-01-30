@@ -27,14 +27,14 @@
     }
   },
   "Resources": {
-    "CastVoteResolver": {
+    "CheckInResolver": {
       "Type": "AWS::AppSync::Resolver",
       "Properties": {
         "ApiId": {
           "Ref": "AppSyncApiId"
         },
-        "DataSourceName": "CandidateTable",
-        "FieldName": "castVote",
+        "DataSourceName": "StoreTable",
+        "FieldName": "checkIn",
         "TypeName": "Mutation",
         "RequestMappingTemplateS3Location": {
           "Fn::Sub": [
@@ -51,7 +51,7 @@
                   ".",
                   [
                     "Mutation",
-                    "castVote",
+                    "checkIn",
                     "req",
                     "vtl"
                   ]
@@ -75,7 +75,7 @@
                   ".",
                   [
                     "Mutation",
-                    "castVote",
+                    "checkIn",
                     "res",
                     "vtl"
                   ]
