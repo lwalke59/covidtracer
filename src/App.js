@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import { AmplifyButton } from '@aws-amplify/ui-react';
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
 import * as subscriptions from './graphql/subscriptions';
@@ -11,7 +12,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stores: []
+      stores: [{ occupants: 0 }]
     };
   };
 
@@ -39,32 +40,38 @@ class App extends Component {
   };
 
   render() {
-    const candidateColors = ["red", "orange", "green", "blue"];
     return (
-      <div className="App">
-        <div className="container mx-auto md:w-3/5 px-3">
-          <div className="text-grey-darkest md:text-lg italic mt-2 mb-3">Which is your favourite AWS serverless service?</div>
-          <div className="flex py-2">
-            {this.state.stores.map((store, idx) =>
-              <Store
-                key={store.id}
-                id={store.id}
-                name={store.name}
-                occupants={store.occupants}
-                color={candidateColors[idx]}
-              />
-            )}
-          </div>
+      <div style={styles.container} >
+        <div> Occupants: {this.state.stores[0].occupants}</div>
+        <div>
+          {this.state.stores.map((store) =>
+            <Checkin
+              key={store.id}
+              id={store.id}
+              name={store.name}
+              occupants={store.occupants}
+            />
+          )}
         </div>
-        <div className="container mx-auto md:w-3/5 px-3">
-          <h1 className="text-lg text-grey-darkest py-6">Live updates</h1>
+        <div>
+          <br></br>
         </div>
-      </div>
+        <div>
+          {this.state.stores.map((store) =>
+            <Checkout
+              key={store.id}
+              id={store.id}
+              name={store.name}
+              occupants={store.occupants}
+            />
+          )}
+        </div>
+      </div >
     )
   }
 }
 
-class Store extends Component {
+class Checkin extends Component {
   handleSubmit = async (event) => {
     const checkIn = {
       id: event.id
@@ -74,15 +81,28 @@ class Store extends Component {
 
   render() {
     return (
-      <button
-        className={`focus:outline-none flex-1 text-white py-2 px-3 mx-1 text-sm md:h-12 h-16 rounded bg-${this.props.color}-dark hover:bg-${this.props.color}-darker`}
-        onClick={() =>
-          this.handleSubmit(this.props)
-        }>
-        <b>{this.props.name}</b> <p className="py-1"><b>{this.props.occupants}</b></p>
-      </button>
+      <AmplifyButton onClick={() => this.handleSubmit(this.props)}>Check-In</AmplifyButton>
     );
   }
+}
+
+class Checkout extends Component {
+  handleSubmit = async (event) => {
+    const checkIn = {
+      id: event.id
+    };
+    await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
+  };
+
+  render() {
+    return (
+      <AmplifyButton onClick={() => this.handleSubmit(this.props)}>Check-Out</AmplifyButton>
+    );
+  }
+}
+
+const styles = {
+  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
 }
 
 export default App;
