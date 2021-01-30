@@ -13,6 +13,18 @@ export const checkIn = /* GraphQL */ `
     }
   }
 `;
+export const checkOut = /* GraphQL */ `
+  mutation CheckOut($input: CheckOutInput!) {
+    checkOut(input: $input) {
+      id
+      name
+      capacity
+      occupants
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createStore = /* GraphQL */ `
   mutation CreateStore(
     $input: CreateStoreInput!

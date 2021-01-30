@@ -85,6 +85,65 @@
           ]
         }
       }
+    },
+    "CheckOutResolver": {
+      "Type": "AWS::AppSync::Resolver",
+      "Properties": {
+        "ApiId": {
+          "Ref": "AppSyncApiId"
+        },
+        "DataSourceName": "StoreTable",
+        "FieldName": "checkOut",
+        "TypeName": "Mutation",
+        "RequestMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [
+                  ".",
+                  [
+                    "Mutation",
+                    "checkOut",
+                    "req",
+                    "vtl"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        "ResponseMappingTemplateS3Location": {
+          "Fn::Sub": [
+            "s3://${S3DeploymentBucket}/${S3DeploymentRootKey}/resolvers/${ResolverFileName}",
+            {
+              "S3DeploymentBucket": {
+                "Ref": "S3DeploymentBucket"
+              },
+              "S3DeploymentRootKey": {
+                "Ref": "S3DeploymentRootKey"
+              },
+              "ResolverFileName": {
+                "Fn::Join": [
+                  ".",
+                  [
+                    "Mutation",
+                    "checkOut",
+                    "res",
+                    "vtl"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "Conditions": {

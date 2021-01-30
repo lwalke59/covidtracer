@@ -37,6 +37,17 @@ class App extends Component {
         console.log("state:", this.state.stores)
       }
     })
+    API.graphql(graphqlOperation(subscriptions.onCheckOut)).subscribe({
+      next: (checkedOut) => {
+        const id = checkedOut.value.data.onCheckOut.id
+        const occupants = checkedOut.value.data.onCheckOut.occupants
+        const stores = this.state.stores
+        const row = stores.find(store => store.id === id);
+        row.occupants = occupants;
+        this.setState({ occupants: stores });
+        console.log("state:", this.state.stores)
+      }
+    })
   };
 
   render() {
@@ -88,10 +99,10 @@ class Checkin extends Component {
 
 class Checkout extends Component {
   handleSubmit = async (event) => {
-    const checkIn = {
+    const checkOut = {
       id: event.id
     };
-    await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
+    await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
   };
 
   render() {

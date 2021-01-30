@@ -13,6 +13,18 @@ export const onCheckIn = /* GraphQL */ `
     }
   }
 `;
+export const onCheckOut = /* GraphQL */ `
+  subscription OnCheckOut {
+    onCheckOut {
+      id
+      name
+      capacity
+      occupants
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateStore = /* GraphQL */ `
   subscription OnCreateStore {
     onCreateStore {

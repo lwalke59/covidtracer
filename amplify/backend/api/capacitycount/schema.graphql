@@ -9,11 +9,18 @@ input CheckInInput {
   id: ID!
 }
 
+input CheckOutInput {
+  id: ID!
+}
+
 type Mutation {
-  checkIn(input: CheckInInput!): Store
+  checkIn(input: CheckInInput!): Store,
+  checkOut(input: CheckOutInput!): Store
 }
 
 type Subscription {
   onCheckIn: Store
-    @aws_subscribe(mutations: ["checkIn"])
+    @aws_subscribe(mutations: ["checkIn"]),
+  onCheckOut: Store
+    @aws_subscribe(mutations: ["checkOut"])
 }
