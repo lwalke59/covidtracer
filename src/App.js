@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
 import { AmplifyButton, withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
@@ -34,7 +34,7 @@ class App extends Component {
         const row = stores.find(store => store.id === id);
         row.occupants = occupants;
         this.setState({ occupants: stores });
-        console.log("state:", this.state.stores)
+        // console.log("state:", this.state.stores)
       }
     })
     API.graphql(graphqlOperation(subscriptions.onCheckOut)).subscribe({
@@ -45,7 +45,7 @@ class App extends Component {
         const row = stores.find(store => store.id === id);
         row.occupants = occupants;
         this.setState({ occupants: stores });
-        console.log("state:", this.state.stores)
+        // console.log("state:", this.state.stores)
       }
     })
   };
@@ -86,6 +86,8 @@ class App extends Component {
 
 class Checkin extends Component {
   handleSubmit = async (event) => {
+    console.log(await Auth.currentUserInfo());
+    console.log(new Date().toISOString());
     const checkIn = {
       id: event.id
     };

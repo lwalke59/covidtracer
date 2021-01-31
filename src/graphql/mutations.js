@@ -70,3 +70,54 @@ export const deleteStore = /* GraphQL */ `
     }
   }
 `;
+export const createPatron = /* GraphQL */ `
+  mutation CreatePatron(
+    $input: CreatePatronInput!
+    $condition: ModelPatronConditionInput
+  ) {
+    createPatron(input: $input, condition: $condition) {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updatePatron = /* GraphQL */ `
+  mutation UpdatePatron(
+    $input: UpdatePatronInput!
+    $condition: ModelPatronConditionInput
+  ) {
+    updatePatron(input: $input, condition: $condition) {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deletePatron = /* GraphQL */ `
+  mutation DeletePatron(
+    $input: DeletePatronInput!
+    $condition: ModelPatronConditionInput
+  ) {
+    deletePatron(input: $input, condition: $condition) {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;

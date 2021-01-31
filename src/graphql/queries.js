@@ -32,3 +32,38 @@ export const listStores = /* GraphQL */ `
     }
   }
 `;
+export const getPatron = /* GraphQL */ `
+  query GetPatron($id: ID!) {
+    getPatron(id: $id) {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listPatrons = /* GraphQL */ `
+  query ListPatrons(
+    $filter: ModelPatronFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPatrons(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        username
+        email
+        phone_number
+        check_in_time
+        check_out_time
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

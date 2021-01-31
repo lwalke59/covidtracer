@@ -61,3 +61,45 @@ export const onDeleteStore = /* GraphQL */ `
     }
   }
 `;
+export const onCreatePatron = /* GraphQL */ `
+  subscription OnCreatePatron {
+    onCreatePatron {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdatePatron = /* GraphQL */ `
+  subscription OnUpdatePatron {
+    onUpdatePatron {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeletePatron = /* GraphQL */ `
+  subscription OnDeletePatron {
+    onDeletePatron {
+      id
+      username
+      email
+      phone_number
+      check_in_time
+      check_out_time
+      createdAt
+      updatedAt
+    }
+  }
+`;

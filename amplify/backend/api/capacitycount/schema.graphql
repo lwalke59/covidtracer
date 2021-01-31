@@ -5,6 +5,15 @@ type Store @model {
   occupants: Int!
 }
 
+type Patron @model {
+  id: ID!
+  username: String!
+  email: AWSEmail
+  phone_number: AWSPhone
+  check_in_time: AWSDateTime
+  check_out_time: AWSDateTime
+}
+
 input CheckInInput {
   id: ID!
 }
