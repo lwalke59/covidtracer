@@ -86,12 +86,28 @@ class App extends Component {
 
 class Checkin extends Component {
   handleSubmit = async (event) => {
-    console.log(await Auth.currentUserInfo());
-    console.log(new Date().toISOString());
+    console.log(event);
+    var currentUser = await Auth.currentUserInfo();
+    var username = currentUser["username"];
+    var email = currentUser["attributes"]["email"];
+    var phonenumber = currentUser["attributes"]["phone_number"];
+    var timestamp = new Date().toISOString();
     const checkIn = {
       id: event.id
     };
+    const Patron = {
+      username: username,
+      email: email,
+      phone_number: phonenumber,
+      check_in_time: timestamp
+    }
     await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
+    var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
+    var id = (createPatronResponse["data"]["createPatron"]['id']);
+    this.setState({ // State not shared between components
+      id: id
+    })
+    console.log(this.state.id)
   };
 
   render() {
@@ -103,10 +119,24 @@ class Checkin extends Component {
 
 class Checkout extends Component {
   handleSubmit = async (event) => {
+    var currentUser = await Auth.currentUserInfo();
+    var username = currentUser["username"];
+    var email = currentUser["attributes"]["email"];
+    var phonenumber = currentUser["attributes"]["phone_number"];
+    var timestamp = new Date().toISOString();
     const checkOut = {
       id: event.id
     };
+    const Patron = {
+      id: this.state.id,
+      username: username,
+      email: email,
+      phone_number: phonenumber,
+      check_out_time: timestamp
+    }
+
     await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
+    await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
   };
 
   render() {
