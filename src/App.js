@@ -34,7 +34,6 @@ class App extends Component {
         const row = stores.find(store => store.id === id);
         row.occupants = occupants;
         this.setState({ occupants: stores });
-        // console.log("state:", this.state.stores)
       }
     })
     API.graphql(graphqlOperation(subscriptions.onCheckOut)).subscribe({
@@ -45,7 +44,6 @@ class App extends Component {
         const row = stores.find(store => store.id === id);
         row.occupants = occupants;
         this.setState({ occupants: stores });
-        // console.log("state:", this.state.stores)
       }
     })
   };
@@ -55,20 +53,10 @@ class App extends Component {
       <div style={styles.container} >
         <div>
           <div> Occupants: {this.state.stores[0].occupants}</div>
-          <div>
-            {this.state.stores.map((store) =>
-              <Checkin
-                key={store.id}
-                id={store.id}
-                name={store.name}
-                occupants={store.occupants}
-              />
-            )}
-          </div>
           <br></br>
           <div>
             {this.state.stores.map((store) =>
-              <Checkout
+              <Checkin
                 key={store.id}
                 id={store.id}
                 name={store.name}
@@ -85,63 +73,62 @@ class App extends Component {
 }
 
 class Checkin extends Component {
+  constructor(props) {
+    super(props);
+    let action = "Check-in";
+
+    this.state = {
+      action: action,
+    };
+  };
   handleSubmit = async (event) => {
-    console.log(event);
+    // Get current user information
     var currentUser = await Auth.currentUserInfo();
     var username = currentUser["username"];
     var email = currentUser["attributes"]["email"];
     var phonenumber = currentUser["attributes"]["phone_number"];
     var timestamp = new Date().toISOString();
-    const checkIn = {
-      id: event.id
-    };
-    const Patron = {
-      username: username,
-      email: email,
-      phone_number: phonenumber,
-      check_in_time: timestamp
+
+    if (this.state.action === "Check-in") { // Check-in
+      const checkIn = {
+        id: event.id
+      };
+      const Patron = {
+        username: username,
+        email: email,
+        phone_number: phonenumber,
+        check_in_time: timestamp
+      }
+      await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
+      var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
+      var id = (createPatronResponse["data"]["createPatron"]['id']);
+      this.setState({
+        id: id,
+        action: "Check-out"
+      })
     }
-    await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
-    var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
-    var id = (createPatronResponse["data"]["createPatron"]['id']);
-    this.setState({ // State not shared between components
-      id: id
-    })
-    console.log(this.state.id)
+    else { // Check-out
+      const checkOut = {
+        id: event.id
+      };
+      const Patron = {
+        id: this.state.id,
+        username: username,
+        email: email,
+        phone_number: phonenumber,
+        check_out_time: timestamp
+      }
+      await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
+      await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
+      this.setState({
+        action: "Check-in"
+      })
+    }
   };
 
   render() {
     return (
-      <AmplifyButton onClick={() => this.handleSubmit(this.props)}>Check-In</AmplifyButton>
-    );
-  }
-}
-
-class Checkout extends Component {
-  handleSubmit = async (event) => {
-    var currentUser = await Auth.currentUserInfo();
-    var username = currentUser["username"];
-    var email = currentUser["attributes"]["email"];
-    var phonenumber = currentUser["attributes"]["phone_number"];
-    var timestamp = new Date().toISOString();
-    const checkOut = {
-      id: event.id
-    };
-    const Patron = {
-      id: this.state.id,
-      username: username,
-      email: email,
-      phone_number: phonenumber,
-      check_out_time: timestamp
-    }
-
-    await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
-    await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
-  };
-
-  render() {
-    return (
-      <AmplifyButton onClick={() => this.handleSubmit(this.props)}>Check-Out</AmplifyButton>
+      <AmplifyButton onClick={() => this.handleSubmit(this.props)}>{this.state.action}</AmplifyButton>
     );
   }
 }
