@@ -1,26 +1,20 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-covidtracer-dev-150417-authRole",
-            "UnauthRoleArn": "arn:aws:iam::038338007858:role/amplify-covidtracer-dev-150417-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::038338007858:role/amplify-covidtracer-dev-150417-authRole",
-            "Region": "us-east-1",
-            "DeploymentBucketName": "amplify-covidtracer-dev-150417-deployment",
-            "UnauthRoleName": "amplify-covidtracer-dev-150417-unauthRole",
-            "StackName": "amplify-covidtracer-dev-150417",
-            "StackId": "arn:aws:cloudformation:us-east-1:038338007858:stack/amplify-covidtracer-dev-150417/5640c040-6336-11eb-a223-12cf2806950f",
-            "AmplifyAppId": "d318qz0wpzy80z"
-        },
-        "categories": {
-            "auth": {
-                "covidtracer5d031d9c": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d318qz0wpzy80z",
-                    "type": "manual"
-                }
-            }
-        }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-covidtracer-dev-150417-authRole",
+      "UnauthRoleArn": "arn:aws:iam::038338007858:role/amplify-covidtracer-dev-150417-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::038338007858:role/amplify-covidtracer-dev-150417-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-covidtracer-dev-150417-deployment",
+      "UnauthRoleName": "amplify-covidtracer-dev-150417-unauthRole",
+      "StackName": "amplify-covidtracer-dev-150417",
+      "StackId": "arn:aws:cloudformation:us-east-1:038338007858:stack/amplify-covidtracer-dev-150417/5640c040-6336-11eb-a223-12cf2806950f",
+      "AmplifyAppId": "d318qz0wpzy80z"
+    },
+    "categories": {
+      "auth": {
+        "covidtracer5d031d9c": {}
+      }
     }
+  }
 }
