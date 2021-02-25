@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
+import Store from './Store/Store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Route exact path="/" component={App} />
+      <Route exact path="/store" component={Store} />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
