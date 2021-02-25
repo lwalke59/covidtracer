@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <div style={styles.container} >
         <div>
-          <div> Occupants: {this.state.stores[0].occupants}</div>
+          <div> Occupancy: {this.state.stores[0].occupants}/100</div>
           <br></br>
           <div>
             {this.state.stores.map((store) =>
@@ -99,13 +99,13 @@ class Checkin extends Component {
         phone_number: phonenumber,
         check_in_time: timestamp
       }
-      await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
-      var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
-      var id = (createPatronResponse["data"]["createPatron"]['id']);
       this.setState({
         id: id,
         action: "Check-out"
       })
+      await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
+      var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
+      var id = (createPatronResponse["data"]["createPatron"]['id']);
     }
     else { // Check-out
       const checkOut = {
@@ -118,11 +118,11 @@ class Checkin extends Component {
         phone_number: phonenumber,
         check_out_time: timestamp
       }
-      await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
-      await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
       this.setState({
         action: "Check-in"
       })
+      await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
+      await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
     }
   };
 
