@@ -137,7 +137,7 @@ class Checkin extends Component {
 }
 
 const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, fontFamily: Arial, sansSerif, },
+  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, },
   meterContainer: { whiteSpace: 'nowrap', overflowX: 'auto' },
   meter: { width: 280, height: 40, display: "inlineBlock" },
 }
