@@ -99,13 +99,13 @@ class Checkin extends Component {
         phone_number: phonenumber,
         check_in_time: timestamp
       }
+      var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
+      var id = (createPatronResponse["data"]["createPatron"]['id']);
       this.setState({
         id: id,
         action: "Check-out"
       })
       await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
-      var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
-      var id = (createPatronResponse["data"]["createPatron"]['id']);
     }
     else { // Check-out
       const checkOut = {
