@@ -48,7 +48,10 @@ class Store extends Component {
         return (
             <div style={styles.container} >
                 <div>
-                    <div> Occupancy: {this.state.stores[0].occupants}/100</div>
+                    <div style={styles.meterContainer}>
+                        <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+                        <h1>{this.state.stores[0].occupants} / 100</h1>
+                    </div>
                     <br></br>
                     <div> Scan to check in to store</div>
                     <br></br>
@@ -61,7 +64,9 @@ class Store extends Component {
 }
 
 const styles = {
-    container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
+    container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, fontFamily: Arial, sansSerif, },
+    meterContainer: { whiteSpace: 'nowrap', overflowX: 'auto' },
+    meter: { width: 280, height: 40, display: "inlineBlock" },
 }
 
 export default Store
