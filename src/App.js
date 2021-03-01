@@ -52,11 +52,12 @@ class App extends Component {
     return (
       <div style={styles.container} >
           <div style={styles.meterContainer}>
-              <h1>{this.state.stores[0].occupants} / 100</h1>
-              <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+            <p>Capacity</p>
+            <h1>{this.state.stores[0].occupants} / 100</h1>
+            <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
           </div>
           <div style={styles.info}>
-            <h2>{this.state.stores[0].occupants < 100 ? 'Check in to store' : 'Please wait for occupants to leave before checking in'}</h2>
+            <h2>{this.state.stores[0].occupants < 100 ? '' : 'Please wait for occupants to leave before checking in'}</h2>
           </div>
           <br></br>
           <div>
@@ -70,6 +71,7 @@ class App extends Component {
               />
             )}
           </div>
+          <br></br>
           <br></br>
           <AmplifySignOut />
       </div >
@@ -140,7 +142,7 @@ class Checkin extends Component {
 
 const styles = {
     container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, textAlign: 'center',},
-    meterContainer: { whiteSpace: 'nowrap', justifyContent: 'center', overflowX: 'auto', fontSize: '250%', },
+    meterContainer: { whiteSpace: 'nowrap', justifyContent: 'center', overflowX: 'auto', fontSize: '150%', },
     meter: { width: '100%', height: 70, justifyContent: 'center', display: "inlineBlock", },
     info: {fontSize: '160%'}
 }
