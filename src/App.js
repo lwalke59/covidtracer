@@ -53,11 +53,11 @@ class App extends Component {
       <div style={styles.container} >
         <div style={styles.meterContainer}>
           <h2>Store Capacity</h2>
-          <h2>{this.state.stores[0].occupants} / 100</h2>
-          <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+          <h2>{this.state.stores[0].occupants} / {this.state.stores[0].capacity}}</h2>
+          <meter style={styles.meter} value={this.state.stores[0].occupants / this.state.stores[0].capacity}></meter>
         </div>
         <div>
-          <h2>{this.state.stores[0].occupants < 100 ? '' : 'Please wait for occupants to leave before checking in'}</h2>
+          <h2>{this.state.stores[0].occupants < this.state.stores[0].capacity ? '' : 'Please wait for occupants to leave before checking in'}</h2>
         </div>
         <br></br>
         <div>
@@ -67,6 +67,7 @@ class App extends Component {
               id={store.id}
               name={store.name}
               occupants={store.occupants}
+              capacity={store.capacity}
             />
           )}
         </div>
@@ -95,7 +96,7 @@ class Checkin extends Component {
     var phonenumber = currentUser["attributes"]["phone_number"];
     var timestamp = new Date().toISOString();
 
-    if (this.state.action === "Check-in") { // Check-in
+    if (this.state.action === "Check-in" && event.occupants < event.capacity) { // Check-in
       const checkIn = {
         id: event.id
       };
@@ -114,7 +115,7 @@ class Checkin extends Component {
       localStorage.setItem('action', "Check-out");
       await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
     }
-    else { // Check-out
+    else if (this.state.action === "Check-out") { // Check-out
       const checkOut = {
         id: event.id
       };

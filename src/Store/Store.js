@@ -49,11 +49,11 @@ class Store extends Component {
             <div style={styles.container}>
                 <div style={styles.meterContainer}>
                     <h1>Store Capacity</h1>
-                    <h1>{this.state.stores[0].occupants} / 100</h1>
-                    <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+                    <h1>{this.state.stores[0].occupants} / {this.state.stores[0].capacity}}</h1>
+                    <meter style={styles.meter} value={this.state.stores[0].occupants / this.state.stores[0].capacity}></meter>
                 </div>
                 <div style={styles.qrCodeContainer}>
-                    <h2>{this.state.stores[0].occupants < 100 ? 'Please scan to check in' : 'Please wait for occupants to leave before checking in'}</h2>
+                    <h2>{this.state.stores[0].occupants < this.state.stores[0].capacity ? 'Please scan to check in' : 'Please wait for occupants to leave before checking in'}</h2>
                     <QRCode style={styles.qrCode} value="https://d3ef4hnn53sef0.cloudfront.net" />
                 </div>
             </div >
