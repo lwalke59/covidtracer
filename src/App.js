@@ -51,19 +51,26 @@ class App extends Component {
   render() {
     return (
       <div style={styles.container} >
+        <div style={styles.meterContainer}>
+          <h2>Store Capacity</h2>
+          <h2>{this.state.stores[0].occupants} / 100</h2>
+          <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+        </div>
         <div>
-          <div> Occupancy: {this.state.stores[0].occupants}/100</div>
-          <br></br>
-          <div>
-            {this.state.stores.map((store) =>
-              <Checkin
-                key={store.id}
-                id={store.id}
-                name={store.name}
-                occupants={store.occupants}
-              />
-            )}
-          </div>
+          <h2>{this.state.stores[0].occupants < 100 ? '' : 'Please wait for occupants to leave before checking in'}</h2>
+        </div>
+        <br></br>
+        <div>
+          {this.state.stores.map((store) =>
+            <Checkin
+              key={store.id}
+              id={store.id}
+              name={store.name}
+              occupants={store.occupants}
+            />
+          )}
+        </div>
+        <div>
           <br></br>
           <AmplifySignOut />
         </div>
@@ -134,7 +141,9 @@ class Checkin extends Component {
 }
 
 const styles = {
-  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
+  container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, textAlign: 'center', },
+  meterContainer: { whiteSpace: 'nowrap', justifyContent: 'center', overflowX: 'auto', fontSize: '150%', },
+  meter: { width: '100%', height: 40, justifyContent: 'center', display: "inlineBlock", }
 }
 
 export default withAuthenticator(App)

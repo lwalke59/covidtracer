@@ -46,14 +46,15 @@ class Store extends Component {
 
     render() {
         return (
-            <div style={styles.container} >
-                <div>
-                    <div> Occupancy: {this.state.stores[0].occupants}/100</div>
-                    <br></br>
-                    <div> Scan to check in to store</div>
-                    <br></br>
-                    <br></br>
-                    <QRCode value="https://d3ef4hnn53sef0.cloudfront.net" />
+            <div style={styles.container}>
+                <div style={styles.meterContainer}>
+                    <h1>Store Capacity</h1>
+                    <h1>{this.state.stores[0].occupants} / 100</h1>
+                    <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+                </div>
+                <div style={styles.qrCodeContainer}>
+                    <h2>{this.state.stores[0].occupants < 100 ? 'Please scan to check in' : 'Please wait for occupants to leave before checking in'}</h2>
+                    <QRCode style={styles.qrCode} value="https://d3ef4hnn53sef0.cloudfront.net" />
                 </div>
             </div >
         )
@@ -61,7 +62,11 @@ class Store extends Component {
 }
 
 const styles = {
-    container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20 },
+    container: { width: 400, margin: '0 auto', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: 20, textAlign: 'center', },
+    meterContainer: { whiteSpace: 'nowrap', justifyContent: 'center', overflowX: 'auto', },
+    meter: { width: '100%', height: 40, justifyContent: 'center', display: "inlineBlock", },
+    qrCode: { width: '70%', height: '70%', },
+    qrCodeContainer: { fontSize: '120%' }
 }
 
 export default Store

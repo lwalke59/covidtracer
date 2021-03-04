@@ -16,5 +16,23 @@
         "covidtracer5d031d9c": {}
       }
     }
+  },
+  "kelly": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-covidtracer-kelly-140941-authRole",
+      "UnauthRoleArn": "arn:aws:iam::846315516387:role/amplify-covidtracer-kelly-140941-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::846315516387:role/amplify-covidtracer-kelly-140941-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-covidtracer-kelly-140941-deployment",
+      "UnauthRoleName": "amplify-covidtracer-kelly-140941-unauthRole",
+      "StackName": "amplify-covidtracer-kelly-140941",
+      "StackId": "arn:aws:cloudformation:us-east-1:846315516387:stack/amplify-covidtracer-kelly-140941/afb4a360-7ac1-11eb-b57a-0e9c2f2accbb",
+      "AmplifyAppId": "d7tnq7nadqs88"
+    },
+    "categories": {
+      "auth": {
+        "covidtracer5d031d9c": {}
+      }
+    }
   }
 }
