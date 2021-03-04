@@ -82,8 +82,7 @@ class App extends Component {
 class Checkin extends Component {
   constructor(props) {
     super(props);
-    let action = "Check-in";
-
+    let action = localStorage.getItem('action') || "Check-in";
     this.state = {
       action: action,
     };
@@ -109,25 +108,29 @@ class Checkin extends Component {
       var createPatronResponse = await API.graphql(graphqlOperation(mutations.createPatron, { input: Patron }));
       var id = (createPatronResponse["data"]["createPatron"]['id']);
       this.setState({
-        id: id,
         action: "Check-out"
       })
+      localStorage.setItem('id', id);
+      localStorage.setItem('action', "Check-out");
       await API.graphql(graphqlOperation(mutations.checkIn, { input: checkIn }));
     }
     else { // Check-out
       const checkOut = {
         id: event.id
       };
+      let id = localStorage.getItem('id');
       const Patron = {
-        id: this.state.id,
+        id: id,
         username: username,
         email: email,
         phone_number: phonenumber,
         check_out_time: timestamp
       }
+      localStorage.removeItem('id');
       this.setState({
         action: "Check-in"
       })
+      localStorage.setItem(`action`, "Check-in");
       await API.graphql(graphqlOperation(mutations.checkOut, { input: checkOut }));
       await API.graphql(graphqlOperation(mutations.updatePatron, { input: Patron }));
     }
