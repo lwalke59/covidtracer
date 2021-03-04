@@ -14,7 +14,14 @@ code {
 
 :root{
 
-  --amplify-primary-color: #008000;
-  --amplify-primary-tint: #0000FF;
-  --amplify-primary-shade: #008000;
+  --amplify-primary-color: #1B988A;
+  --amplify-primary-tint: #1b2998;
+  --amplify-primary-shade: #1B988A;
+}
+
+meter::-webkit-meter-optimum-value {
+  background: #21981b;
+}
+meter::-moz-meter-bar { /* Firefox Pseudo Class */
+  background: #21981b;
 }
