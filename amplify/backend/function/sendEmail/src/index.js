@@ -7,14 +7,34 @@
 Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
+const qs = require('querystring');
 var docClient = new AWS.DynamoDB.DocumentClient();
 var ses = new AWS.SES({ region: "us-east-1" });
 
 var tableName = process.env.API_CAPACITYCOUNT_PATRONTABLE_NAME;
-var start_time = "2021-03-05T15:19:16.555Z";
-var end_time = "2021-03-05T15:19:59.555Z";
+// var start_time = "2021-03-05T15:19:16.555Z";
+// var end_time = "2021-03-05T15:19:59.555Z";
 
 exports.handler = async (event) => {
+    if (!(event && event.body)) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Required parameters are missing")
+        };
+    }
+
+    let buff = new Buffer(event.body, 'base64');
+    var jsonBody = qs.parse(buff.toString('ascii'));
+    var start_time = jsonBody.start_time;
+    var end_time = jsonBody.end_time;
+
+    if (start_time === undefined || end_time === undefined) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify("Start time or end time is missing"),
+        };
+    }
+
     var data;
     var emails = [];
     var params = {
