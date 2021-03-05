@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "covidtracer5d031d9c": {}
+      },
+      "function": {
+        "sendEmail": {
+          "deploymentBucketName": "amplify-covidtracer-dev-150417-deployment",
+          "s3Key": "amplify-builds/sendEmail-627747566b7869666336-build.zip"
+        }
       }
     }
   },

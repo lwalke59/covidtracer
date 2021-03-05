@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "storage": {
+      "Patron:@model(appsync)": [
+        "read"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}
