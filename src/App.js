@@ -53,15 +53,15 @@ class App extends Component {
       <div style={styles.container} >
         <div style={styles.meterContainer}>
           <h2>Store Capacity</h2>
-          <h2>{this.state.stores[0].occupants} / 100</h2>
-          <meter style={styles.meter} value={this.state.stores[0].occupants / 100}></meter>
+          <h2>{this.state.stores[0].occupants} / {this.state.stores[0].capacity}</h2>
+          <meter style={styles.meter} value={this.state.stores[0].occupants / this.state.stores[0].capacity}></meter>
         </div>
         <div>
-          <h2>{this.state.stores[0].occupants < 100 ? '' : 'Please wait for occupants to leave before checking in'}</h2>
+          <h2>{(this.state.stores[0].occupants < this.state.stores[0].capacity || localStorage.getItem(`action`) === "Check-out") ? '' : 'Please wait for occupants to leave before checking in'}</h2>
         </div>
         <br></br>
         <div>
-          {this.state.stores.map((store) =>
+          {(this.state.stores[0].occupants < this.state.stores[0].capacity || localStorage.getItem(`action`) === "Check-out") && this.state.stores.map((store) =>
             <Checkin
               key={store.id}
               id={store.id}
