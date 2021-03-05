@@ -16,17 +16,8 @@ var tableName = process.env.API_CAPACITYCOUNT_PATRONTABLE_NAME;
 // var end_time = "2021-03-05T15:19:59.555Z";
 
 exports.handler = async (event) => {
-    if (!(event && event.body)) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify("Required parameters are missing")
-        };
-    }
-
-    let buff = new Buffer(event.body, 'base64');
-    var jsonBody = qs.parse(buff.toString('ascii'));
-    var start_time = jsonBody.start_time;
-    var end_time = jsonBody.end_time;
+    var start_time = event["queryStringParameters"]['start_time'];
+    var end_time = event["queryStringParameters"]['end_time'];
 
     if (start_time === undefined || end_time === undefined) {
         return {
@@ -54,7 +45,7 @@ exports.handler = async (event) => {
         console.error(error);
     }
     var email_list = data['Items'];
-    if (email_list.length == 0) {
+    if (email_list.length === 0) {
         return {
             statusCode: 400,
             body: JSON.stringify('No emails in list'),
@@ -82,5 +73,8 @@ exports.handler = async (event) => {
     };
 
     // return ses.sendEmail(emailparams).promise();
-    return true;
+    return {
+        statusCode: 200,
+        body: JSON.stringify('Success'),
+    };
 };
