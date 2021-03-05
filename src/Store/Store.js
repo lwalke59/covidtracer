@@ -49,7 +49,7 @@ class Store extends Component {
             <div style={styles.container}>
                 <div style={styles.meterContainer}>
                     <h1>Store Capacity</h1>
-                    <h1>{this.state.stores[0].occupants} / {this.state.stores[0].capacity}}</h1>
+                    <h1>{this.state.stores[0].occupants} / {this.state.stores[0].capacity}</h1>
                     <meter style={styles.meter} value={this.state.stores[0].occupants / this.state.stores[0].capacity}></meter>
                 </div>
                 <div style={styles.qrCodeContainer}>
