@@ -8,12 +8,15 @@ Amplify Params - DO NOT EDIT */
 
 const AWS = require('aws-sdk');
 var docClient = new AWS.DynamoDB.DocumentClient();
+var ses = new AWS.SES({ region: "us-east-1" });
+
 var tableName = process.env.API_CAPACITYCOUNT_PATRONTABLE_NAME;
 var start_time = "2021-03-05T15:19:16.555Z";
 var end_time = "2021-03-05T15:19:59.555Z";
 
 exports.handler = async (event) => {
     var data;
+    var emails = [];
     var params = {
         TableName: tableName,
         ProjectionExpression: "email",
@@ -30,6 +33,34 @@ exports.handler = async (event) => {
     catch (error) {
         console.error(error);
     }
-    console.log(data);
+    var email_list = data['Items'];
+    if (email_list.length == 0) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify('No emails in list'),
+        };
+    }
+
+    var i;
+    for (i = 0; i < email_list.length; i++) {
+        emails.push(email_list[i].email);
+    }
+    console.log(emails);
+
+    var emailparams = {
+        Destination: {
+            ToAddresses: ["lwalke59@uwo.ca"],
+        },
+        Message: {
+            Body: {
+                Text: { Data: "Test" },
+            },
+
+            Subject: { Data: "Test Email" },
+        },
+        Source: "lwalke59@uwo.ca",
+    };
+
+    // return ses.sendEmail(emailparams).promise();
     return true;
 };
