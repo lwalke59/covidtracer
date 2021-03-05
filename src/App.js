@@ -67,7 +67,6 @@ class App extends Component {
               id={store.id}
               name={store.name}
               occupants={store.occupants}
-              capacity={store.capacity}
             />
           )}
         </div>
