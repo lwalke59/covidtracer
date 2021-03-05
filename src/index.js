@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import App from './App';
 import Store from './Store/Store';
+import Email from './Email/Email';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -11,6 +12,7 @@ ReactDOM.render(
     <Router>
       <Route exact path="/" component={App} />
       <Route exact path="/store" component={Store} />
+      <Route exact path="/email" component={Email} />
     </Router>
   </React.StrictMode>,
   document.getElementById('root')
