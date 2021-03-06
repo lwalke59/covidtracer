@@ -18,7 +18,7 @@
       "function": {
         "sendEmail": {
           "deploymentBucketName": "amplify-covidtracer-dev-150417-deployment",
-          "s3Key": "amplify-builds/sendEmail-394f3834683739514751-build.zip"
+          "s3Key": "amplify-builds/sendEmail-4c582f492b4557784d59-build.zip"
         }
       }
     }

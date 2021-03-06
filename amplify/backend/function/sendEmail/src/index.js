@@ -12,8 +12,6 @@ var docClient = new AWS.DynamoDB.DocumentClient();
 var ses = new AWS.SES({ region: "us-east-1" });
 
 var tableName = process.env.API_CAPACITYCOUNT_PATRONTABLE_NAME;
-// var start_time = "2021-03-05T15:19:16.555Z";
-// var end_time = "2021-03-05T15:19:59.555Z";
 
 exports.handler = async (event) => {
     var start_time = event["queryStringParameters"]['start_time'];
@@ -47,32 +45,34 @@ exports.handler = async (event) => {
     var email_list = data['Items'];
     if (email_list.length === 0) {
         return {
-            statusCode: 400,
+            statusCode: 200,
             body: JSON.stringify('No emails in list'),
         };
     }
 
     var i;
     for (i = 0; i < email_list.length; i++) {
-        emails.push(email_list[i].email);
+        if (!emails.includes(email_list[i].email)) {
+            emails.push(email_list[i].email);
+        }
     }
     console.log(emails);
 
     var emailparams = {
         Destination: {
-            ToAddresses: ["lwalke59@uwo.ca"],
+            ToAddresses: emails,
         },
         Message: {
             Body: {
-                Text: { Data: "Test" },
+                Text: { Data: "COVID-19 Exposure Notifcation" },
             },
 
-            Subject: { Data: "Test Email" },
+            Subject: { Data: "Hello. You may have been exposed to COVID-19." },
         },
-        Source: "lwalke59@uwo.ca",
+        Source: "covidtracerdemo@gmail.com",
     };
 
-    // return ses.sendEmail(emailparams).promise();
+    await ses.sendEmail(emailparams).promise();
     return {
         statusCode: 200,
         body: JSON.stringify('Success'),
