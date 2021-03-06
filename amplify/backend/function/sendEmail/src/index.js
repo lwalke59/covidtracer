@@ -64,10 +64,10 @@ exports.handler = async (event) => {
         },
         Message: {
             Body: {
-                Text: { Data: "COVID-19 Exposure Notifcation" },
+                Text: { Data: "Hello. You may have been exposed to COVID-19 at demo store." },
             },
 
-            Subject: { Data: "Hello. You may have been exposed to COVID-19." },
+            Subject: { Data: "COVID-19 Exposure Notifcation" },
         },
         Source: "covidtracerdemo@gmail.com",
     };
