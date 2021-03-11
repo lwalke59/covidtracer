@@ -64,7 +64,7 @@ exports.handler = async (event) => {
         },
         Message: {
             Body: {
-                Text: { Data: "Hello. You may have been exposed to COVID-19 at demo store." },
+                Text: { Data: "You may have been exposed to COVID-19 during your recent vist to demo store. Please consider getting tested and follow all public health guidelines in your area." },
             },
 
             Subject: { Data: "COVID-19 Exposure Notifcation" },
